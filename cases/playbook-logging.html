@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Playbook logging feature — Lera Adele</title>
+  <meta name="description" content="Case study: a workout logging feature for Playbook, a fitness app with programs from expert coaches.">
+  <meta name="theme-color" content="#E8E8E8">
+  <meta property="og:title" content="Playbook logging feature — Lera Adele">
+  <meta property="og:image" content="../assets/previews/01-playbook-logging.jpg">
+  <link rel="icon" href="../assets/img/favicon.svg?v=2" type="image/svg+xml">
+  <link rel="icon" href="../assets/img/favicon-64.png?v=2" type="image/png" sizes="64x64">
+  <link rel="apple-touch-icon" href="../assets/img/favicon-64.png?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/case.css?v=10">
+</head>
+<body>
+  <main class="case">
+    <a class="back" href="../">← Back</a>
+
+    <div class="case-grid">
+      <aside class="case-info" aria-label="Project information">
+        <span class="tag tag--app">App</span>
+        <p class="role">Role: Product Designer · Merge · 2022</p>
+        <a class="browse" href="https://apps.apple.com/pl/app/playbook-trainers-workouts/id1107266414?l=pl" target="_blank" rel="noopener">Browse the app
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5.33 15 4.17 13.83l8-8H5V4.17h10v10h-1.67V7l-8 8Z"/></svg>
+        </a>
+      </aside>
+
+      <article class="case-doc">
+        <h1 class="case-title">Playbook logging feature</h1>
+
+        <section class="case-section case-section--tight case-section--lead">
+          <div class="case-text">
+            <h2>The problem</h2>
+            <p>Playbook is a fitness app with training programs from expert coaches. Users could follow workouts, but had no way to record their results or leave notes, so they couldn't see whether they were actually progressing.</p>
+          </div>
+          <figure class="case-media">
+            <img src="../assets/cases/playbook-logging/playbook-logging-01.jpg" alt="Playbook workout screens: exercise list, timer and logging" width="1200" height="800">
+          </figure>
+        </section>
+
+        <section class="case-section case-section--tight">
+          <div class="case-text">
+            <h2>Client brief</h2>
+          </div>
+          <figure class="case-media">
+            <img src="../assets/cases/playbook-logging/playbook-logging-02.png" alt="Client message: The app offered various exercises, but it lacked the ability to track your activity or leave notes for future reference. We need to develop a functionality that allows users to easily monitor their workouts, add personal notes, and track their maximum effort scores." width="1200" height="800" loading="lazy">
+          </figure>
+        </section>
+
+        <section class="case-section">
+          <div class="case-text">
+            <h2>What users needed</h2>
+            <ul>
+              <li>See progress: how weight and reps grow over time.</li>
+              <li>Compare max effort with previous sessions and with the coach's numbers.</li>
+              <li>Share personal bests with others.</li>
+            </ul>
+          </div>
+          <figure class="case-media">
+            <img src="../assets/cases/playbook-logging/playbook-logging-03.jpg" alt="Workout overview and exercise list" width="1200" height="800" loading="lazy">
+          </figure>
+        </section>
+
+        <section class="case-section">
+          <div class="case-text">
+            <h2>Starting point</h2>
+            <p>To make it easier to start logging, we added a Workout Log button to the tab bar and moved the Timer into the header, since users told us they needed it to be more visible.</p>
+          </div>
+          <figure class="case-media">
+            <img src="../assets/cases/playbook-logging/playbook-logging-04.jpg" alt="Workout screen before and after the redesign" width="1200" height="800" loading="lazy">
+          </figure>
+        </section>
+
+        <section class="case-section">
+          <div class="case-text">
+            <h2>Timer experience</h2>
+            <p>We moved the Timer into the header so it’s always one tap away. In the modal, users can add or subtract 10 seconds, pause, or stop. Once they close it, the countdown keeps running in the header, and they can tap it to get back to the controls.</p>
+          </div>
+          <figure class="case-media">
+            <img src="../assets/cases/playbook-logging/playbook-logging-05.jpg" alt="Exercise list, timer modal and ongoing timer" width="1200" height="800" loading="lazy">
+          </figure>
+        </section>
+
+        <section class="case-section">
+          <div class="case-text">
+            <h2>Logging Screen</h2>
+            <p>The coach's recommended values are pre-filled, so users only adjust what changed. Units vary between workouts, so each unit sits right next to its field and it's always clear what to enter.</p>
+          </div>
+          <figure class="case-media">
+            <img src="../assets/cases/playbook-logging/playbook-logging-06.jpg" alt="Logging screen opened from a video workout and from the workouts list" width="1200" height="800" loading="lazy">
+          </figure>
+        </section>
+
+        <section class="case-section">
+          <div class="case-text">
+            <h2>Custom Keyboard</h2>
+            <p>Users can log a whole workout without leaving the keyboard: +/− adjust a value, Prev/Next jump between fields. No precise tapping on small cells mid-workout.</p>
+          </div>
+          <figure class="case-media">
+            <img src="../assets/cases/playbook-logging/playbook-logging-07.png" alt="Custom keyboard: empty, filled and delete states" width="1200" height="800" loading="lazy">
+          </figure>
+        </section>
+
+        <section class="case-section">
+          <div class="case-text">
+            <h2>Logging History</h2>
+            <p>All logs live in a History tab next to Logging, grouped by date, with search to find any exercise quickly.</p>
+          </div>
+          <figure class="case-media">
+            <img src="../assets/cases/playbook-logging/playbook-logging-08.png" alt="History page and workout history" width="1200" height="800" loading="lazy">
+          </figure>
+        </section>
+
+        <section class="case-section">
+          <div class="case-text">
+            <h2>Variety of palettes</h2>
+            <p>Coaches can choose their own color palette. We kept the UI neutral and limited color to a few accent elements, so any palette from the system looks balanced, never busy.</p>
+          </div>
+          <figure class="case-media">
+            <img src="../assets/cases/playbook-logging/playbook-logging-09.jpg" alt="The same screens in different coach palettes" width="1200" height="800" loading="lazy">
+          </figure>
+        </section>
+
+        <section class="case-section">
+          <div class="case-text">
+            <h2>Conclusion</h2>
+            <p>The feature is live. Playbook users can now record every workout, keep notes, and compare results over time, which turns the app from a program library into a progress tracker.</p>
+          </div>
+        </section>
+
+        <aside class="next-case" aria-label="Next case">
+          <div class="next-tv" aria-hidden="true">
+            <img src="../assets/img/tv.svg" alt="" width="1350" height="945" loading="lazy">
+            <img class="next-screen" src="../assets/previews/02-playbook-community.jpg" alt="" width="1280" height="977" loading="lazy">
+          </div>
+          <div class="next-text">
+            <p class="next-label">Next case:</p>
+            <p class="next-title">Playbook community feature</p>
+            <!-- TODO: becomes cases/playbook-community.html when that page exists -->
+            <a class="next-link" href="playbook-community.html">Keep exploring <span aria-hidden="true">→</span></a>
+          </div>
+        </aside>
+
+        <button class="to-top" type="button" aria-label="Back to the top">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.71 10.71a1 1 0 0 1-1.42 0L13 5.41V21a1 1 0 1 1-2 0V5.41l-5.29 5.3a1 1 0 0 1-1.42-1.42l7-7a1 1 0 0 1 1.42 0l7 7a1 1 0 0 1 0 1.42Z"/></svg>
+        </button>
+      </article>
+    </div>
+  </main>
+
+  <script src="../js/case.js?v=4"></script>
+
+  <a class="back-fab" href="../" aria-label="Back to all projects">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.62v10.76c0 2.18-2.49 3.4-4.19 2.06l-6.82-5.38c-.09-.07-.16-.16-.24-.24V20a.75.75 0 0 1-1.5 0V4a.75.75 0 0 1 1.5 0v6.19c.08-.08.15-.17.24-.24l6.82-5.39C16.51 3.22 19 4.44 19 6.62Z"/></svg>
+  </a>
+</body>
+</html>

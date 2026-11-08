@@ -1,0 +1,326 @@
+/* ============================================================
+   Case-study pages (shared by every project)
+   Figma: Portfolio → "… case study" frames (desktop 1440, mobile 390)
+   ============================================================ */
+:root {
+  --text-primary: #222222;
+  --text-tertiary: #737373;
+  --purple: #af52de;
+  --bg: #e8e8e8;
+  --media-bg: #f2f2f2;
+  --font: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ease-in-out: cubic-bezier(.65, 0, .35, 1);
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text-primary);
+  font: 400 16px/1.5 var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, p, ul, figure { margin: 0; padding: 0; }
+ul { list-style: none; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+:focus-visible { outline: 2px solid var(--purple); outline-offset: 3px; border-radius: 4px; }
+
+/* ============================================================
+   Desktop (≥ 1024): back link, then info column + 600px document
+   ============================================================ */
+.case {
+  display: flex;
+  flex-direction: column;
+  gap: 52px;
+  padding: 72px;
+}
+
+.back {
+  align-self: flex-start;
+  color: var(--text-tertiary);
+  transition: color .2s;
+}
+.back:hover { color: var(--text-primary); }
+
+.case-grid {
+  display: flex;
+  align-items: flex-start;
+  gap: 120px;
+}
+
+/* ---- Project information (sticks while the document scrolls) */
+.case-info {
+  position: sticky;
+  top: 72px;
+  flex: none;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.tag {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.tag--app { color: var(--purple); background: rgba(175, 82, 222, .1); }
+.tag--website { color: #007aff; background: rgba(0, 122, 255, .1); }
+.tag--branding { color: #ff2d55; background: rgba(255, 45, 85, .1); }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.role { font-size: 16px; }
+
+.browse {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-tertiary);
+  transition: color .2s;
+}
+.browse svg { width: 20px; height: 20px; fill: currentColor; transition: transform .2s var(--ease-in-out); }
+.browse:hover { color: var(--text-primary); }
+.browse:hover svg { transform: translate(2px, -2px); }
+
+/* ---- Document --------------------------------------------- */
+.case-doc {
+  flex: 0 1 600px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.case-title {
+  padding-top: 12px;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 48px;
+}
+
+.case-section {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.case-section--tight { gap: 30px; }
+
+.case-text {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.case-text h2 {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 29px;
+}
+
+.case-text p,
+.case-text li {
+  font-size: 16px;
+  line-height: 24px;
+}
+.case-text li::before { content: "• "; }
+.case-text p + p { margin-top: 6px; } /* a blank line between paragraphs (18px gap + 6px = one 24px line) */
+
+/* ---- Media: every illustration is a 600 × 400 frame exported from Figma */
+.case-media {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--media-bg); /* placeholder until the image loads */
+}
+.case-media img,
+.case-media video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  color: transparent; /* no alt-text flash while an image is still missing / loading */
+  font-size: 0;
+}
+
+/* ---- Next case: TV picture (not a link) + text that leads on */
+.next-case {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  padding: 60px;
+  border-radius: 8px;
+  background: var(--media-bg);
+}
+
+.next-tv {
+  position: relative;
+  flex: none;
+  width: 249px;
+  aspect-ratio: 1350 / 945;
+}
+.next-tv > img { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* the preview sits inside the TV screen (same geometry as on the home page) */
+.next-tv .next-screen {
+  left: calc(54 / 1350 * 100%);
+  top: calc(54 / 945 * 100%);
+  width: calc(965 / 1350 * 100%);
+  height: calc(737 / 945 * 100%);
+  border-radius: 7.41% / 9.7%;
+  object-fit: cover;
+}
+
+.next-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  min-width: 0;
+}
+.next-label { font-size: 16px; }
+.next-title {
+  margin-top: -16px; /* 8px under the label */
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.next-link {
+  color: var(--text-tertiary);
+  transition: color .2s;
+}
+.next-link span { display: inline-block; transition: transform .25s var(--ease-in-out); }
+.next-link:hover { color: var(--text-primary); }
+.next-link:hover span { transform: translateX(4px); }
+/* the whole text column is the click target, the TV is not */
+.next-text { position: relative; }
+.next-link::after { content: ""; position: absolute; inset: 0; }
+
+/* ---- Jump to top (desktop only): appears from the middle of the page.
+   Sticky: it rides 72px above the bottom of the window and, at the very end,
+   lands where Figma puts it — 58px right of the column, level with its bottom. */
+.to-top {
+  position: sticky;
+  bottom: 72px;
+  align-self: flex-end;
+  margin: -110px -118px 0 0; /* -(60 + 50 gap) so it takes no room; 58px right of the column */
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  border: 0;
+  border-radius: 40px;
+  background: rgba(255, 255, 255, .8);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(12px) scale(.9);
+  pointer-events: none;
+  transition: opacity .4s var(--ease-in-out), transform .4s var(--ease-in-out), background-color .2s;
+}
+.to-top.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+.to-top:hover { background: #fff; }
+.to-top svg { width: 24px; height: 24px; fill: var(--text-primary); }
+
+/* mobile-only back button */
+.back-fab { display: none; }
+
+/* ============================================================
+   Laptop (1024 – 1279)
+   ============================================================ */
+@media (max-width: 1279px) {
+  .case { padding: 56px 48px; }
+  .case-grid { gap: 64px; }
+  .case-info { width: 240px; top: 56px; }
+  /* less room on the right: keep the "to top" button inside the window */
+  .to-top { margin-right: calc(-1 * min(118px, (100vw - 952px) / 2 + 30px)); } /* centred in the free space on the right */
+}
+
+/* ============================================================
+   Tablet + mobile (< 1024): one column
+   tag → title → role → Browse → sections (the first one image-first)
+   ============================================================ */
+@media (max-width: 1023px) {
+  .case {
+    gap: 0;
+    padding: 80px 24px 120px;
+    max-width: 648px;
+    margin: 0 auto;
+  }
+
+  .back { display: none; }
+
+  .case-grid,
+  .case-info,
+  .case-doc { display: contents; }
+
+  .case-grid { flex-direction: column; }
+
+  /* rebuild the order of the header on one column */
+  .case-info > :is(.tag, .tags) { order: 1; align-self: flex-start; }
+  .case-title       { order: 2; margin-top: 12px; padding: 0; font-size: 28px; line-height: 1.2; }
+  .case-info > .role   { order: 3; margin-top: 12px; }
+  .case-info > .browse { order: 4; margin-top: 32px; align-self: flex-start; }
+  .case-section     { order: 5; margin-top: 40px; gap: 32px; }
+  .case-section:first-of-type { margin-top: 32px; }
+
+  /* the case is a flex column so `order` works */
+  .case { display: flex; flex-direction: column; }
+
+  .case-text { gap: 16px; }
+  .case-text p,
+  .case-text li { font-size: 20px; line-height: 1.5; }
+
+  /* first section: picture first, then "The problem" */
+  .case-section--lead .case-media:first-of-type { order: -1; }
+
+  /* floating back button, like a remote's ⏮ key */
+  .back-fab {
+    position: fixed;
+    left: 50%;
+    bottom: max(24px, env(safe-area-inset-bottom));
+    z-index: 10;
+    display: grid;
+    place-items: center;
+    width: 60px;
+    height: 60px;
+    margin-left: -30px;
+    border-radius: 40px;
+    background: rgba(255, 255, 255, .8);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 16px rgba(40, 40, 40, .08);
+    transition: transform .2s var(--ease-in-out);
+  }
+  .back-fab:active { transform: scale(.94); }
+  .back-fab svg { width: 24px; height: 24px; fill: var(--text-primary); }
+
+  /* next case: TV on top, centred text under it (Figma: mobile "Next Case") */
+  .next-case { order: 6; margin-top: 40px; flex-direction: column; align-items: center; gap: 50px; padding: 60px 24px; text-align: center; }
+  .next-tv { width: min(249px, 100%); }
+  .next-text { align-items: center; width: min(250px, 100%); }
+
+  /* one floating button on small screens: ⏮ back — no "to top" */
+  .to-top { display: none; }
+}
+
+/* ============================================================
+   Entrance: the page fades in softly
+   ============================================================ */
+.case { animation: case-in .6s var(--ease-in-out) both; }
+@keyframes case-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
