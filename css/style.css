@@ -134,13 +134,26 @@ button {
 .about-text { margin-top: -8px; }
 .about-text span { display: block; }
 
+/* Show more / Show less: text + arrow, both turn orange on hover */
 .toggle {
-  color: var(--text-tertiary);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-primary);
   transition: color .2s;
+}
+.toggle svg {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  transition: transform .25s var(--ease-in-out);
 }
 .toggle:focus,
 .toggle:focus-visible { outline: none; }
-.toggle:hover { color: var(--text-primary); }
+.toggle:hover { color: var(--accent); }
+.more-toggle:hover svg { transform: translateY(2px); }
+.less-toggle:hover svg { transform: translateY(-2px); }
 
 /* ---- Project list ------------------------------------------ */
 .projects {
