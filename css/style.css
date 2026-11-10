@@ -95,10 +95,12 @@ button {
 }
 
 .profile {
+  --col-gap: 48px;
+  --col-pad: 72px;
   display: flex;
   flex-direction: column;
-  gap: 48px;
-  padding: 72px 0;
+  gap: var(--col-gap);
+  padding: var(--col-pad) 0;
   min-height: 100vh;
   min-height: 100dvh;
 }
@@ -241,7 +243,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: -32px; /* "Less" sits 16px under the text, like "More" did */
+  margin-top: calc(16px - var(--col-gap, 48px)); /* "Less" sits 16px under the text, like "More" did */
 }
 
 /* photo: a static disc with a shadow, the picture spins inside, the dial ring stays put */
@@ -562,6 +564,21 @@ button {
 }
 .screen[data-power="off"]::after { animation: afterglow 1.2s ease-out forwards; }
 @keyframes afterglow { 0% { opacity: .9; } 100% { opacity: 0; transform: scale(.3); } }
+
+/* ============================================================
+   Short desktop windows: the home page never scrolls by default —
+   the column tightens its spacing to fit the window height
+   ============================================================ */
+@media (min-width: 1024px) and (max-height: 760px) {
+  .profile { --col-gap: 32px; --col-pad: 44px; }
+  .projects { padding-top: 12px; }
+}
+@media (min-width: 1024px) and (max-height: 640px) {
+  .profile { --col-gap: 24px; --col-pad: 28px; }
+  .projects { padding-top: 4px; }
+  .project { height: 36px; }
+  .intro-text { --intro-size: 26px; }
+}
 
 /* ============================================================
    Laptop (1024 – 1279): narrower column, slightly smaller intro
