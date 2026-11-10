@@ -644,6 +644,17 @@ button {
     margin-top: -1px; /* no hairline seam between the intro and the TV block */
     background: var(--bg);
   }
+  /* soft white fade where the list slides under the TV */
+  .stage::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    height: 56px;
+    background: linear-gradient(var(--white), rgba(255, 255, 255, 0));
+    pointer-events: none;
+  }
 
   .tv {
     width: min(calc(100% - 7px), 640px); /* 343px in a 350px frame, as in Figma */
@@ -655,14 +666,17 @@ button {
     order: 3;
     flex: none;
     padding: 32px 20px 0 40px;
-    /* at the end of the page: the last 4 projects + the contacts fill the space under the TV
-       (4 rows = 224px, contacts = 104px, 32px above the rows); see scrollSpy */
-    padding-bottom: max(32px, calc(100vh - var(--sticky-h, 300px) - 360px));
-    padding-bottom: max(32px, calc(100svh - var(--sticky-h, 300px) - 360px));
+    /* at the end of the page: the last 3 projects + the contacts fill the space under the TV
+       (main.js measures it into --list-tail; the fallback assumes 3 rows + contacts ≈ 292px) */
+    padding-bottom: var(--list-tail, max(32px, calc(100vh - var(--sticky-h, 300px) - 292px)));
   }
   /* the list scrolls naturally under the TV; the project right under it is the one on screen */
   .projects ol { gap: 16px; max-width: 600px; }
   .project { height: 44px; }
+  /* the badge pops in faster here: while scrolling, each project stays lit for ~260ms */
+  .project-icon { transition-duration: .22s; }
+  .project.is-active .project-icon::before { transition: transform .3s cubic-bezier(.34, 1.56, .64, 1) .02s; }
+  .project.is-active .project-icon svg { transition: transform .3s cubic-bezier(.34, 1.56, .64, 1) .08s; }
   .project-icon { --icon: 36px; --glyph: 16px; }
 
   .contacts {

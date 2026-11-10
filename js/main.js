@@ -237,28 +237,72 @@
   });
 
   // ---- Mobile: the project under the sticky TV becomes the active channel
+  // At the end of the page the last 3 projects sit under the TV (END_GAP below it, the
+  // row above them hidden under the white fade) and the contacts close the screen.
+  const END_ROWS = 3;
+  const END_GAP = 24;
+  const projectList = document.querySelector(".projects");
+  const contacts = document.querySelector(".contacts");
   let spyRaf = 0;
   function updateStickyHeight() {
     document.documentElement.style.setProperty("--sticky-h", stage.offsetHeight + "px");
+    if (!MOBILE.matches) { projectList.style.removeProperty("--list-tail"); return; }
+    const firstEnd = projects[projects.length - END_ROWS].getBoundingClientRect();
+    const last = projects[projects.length - 1].getBoundingClientRect();
+    const rows = last.bottom - firstEnd.top;
+    const tail = window.innerHeight - stage.offsetHeight - END_GAP - rows - contacts.offsetHeight;
+    projectList.style.setProperty("--list-tail", Math.max(32, Math.round(tail)) + "px");
   }
-  // The list scrolls under the sticky TV and the active channel follows the scroll.
-  // The page ends with the last 4 projects and the contacts in view (CSS), so the
-  // scroll is split evenly between the projects instead of waiting for each to reach the TV.
+  // The list scrolls under the sticky TV; the project on a reading line just below the TV
+  // is the active one. The last projects never reach that line (the page ends first), so
+  // the line slides down the list as the page scrolls: at the very bottom it is on the
+  // last project. It moves continuously, so the projects light up one after another.
   function scrollSpy() {
     spyRaf = 0;
     // playing: the TV drives the list; stopped: scrolling must not switch the TV back on
     if (!MOBILE.matches || home.dataset.view !== "projects" || state === "playing" || state === "stopped") return;
-    if (window.scrollY < 24) return; // keep the current channel at the very top of the page
-    // the scroll from here to the bottom of the page is shared evenly between the projects,
-    // so each one gets the same stretch and the very bottom selects the last one
     const START = 24;
+    const y = window.scrollY;
+    if (y < START) return; // keep the current channel at the very top of the page
     const maxY = document.documentElement.scrollHeight - window.innerHeight;
-    const t = Math.min(1, Math.max(0, (window.scrollY - START) / Math.max(1, maxY - START)));
-    const best = Math.min(projects.length - 1, Math.floor(t * projects.length));
-    selectFromList(best);
+    const centre = (p) => { const r = p.getBoundingClientRect(); return r.top + r.height / 2; };
+    const rowH = projects[0].offsetHeight;
+    const travel = centre(projects[projects.length - 1]) - centre(projects[projects.length - END_ROWS]);
+    const t = Math.min(1, Math.max(0, (y - START) / Math.max(1, maxY - START)));
+    const line = stage.getBoundingClientRect().bottom + END_GAP + rowH / 2 + travel * t;
+    let best = 0, bestDist = Infinity;
+    projects.forEach((p, k) => {
+      const d = Math.abs(centre(p) - line);
+      if (d < bestDist) { best = k; bestDist = d; }
+    });
+    stepTowards(best);
+  }
+  // A fast flick can move the line past several projects between two frames. Instead of
+  // jumping there, the highlight walks one project at a time and stays on each one long
+  // enough for its Play badge to visibly pop in (mobile badge timing in style.css).
+  const STEP_MS = 260;
+  let spyTarget = -1, stepTimer = 0;
+  function stepTowards(target) {
+    spyTarget = target;
+    if (stepTimer) return;
+    const step = () => {
+      stepTimer = 0;
+      if (state === "playing" || state === "stopped" || spyTarget === index) return;
+      selectFromList(index + Math.sign(spyTarget - index));
+      if (spyTarget !== index) stepTimer = setTimeout(step, STEP_MS);
+    };
+    step();
   }
   window.addEventListener("scroll", () => { if (!spyRaf) spyRaf = requestAnimationFrame(scrollSpy); }, { passive: true });
-  window.addEventListener("resize", updateStickyHeight);
+  let lastW = window.innerWidth;
+  window.addEventListener("resize", () => {
+    // phones resize the window as the browser bars show and hide: keep the end of the page put
+    // unless the width changed or the height changed a lot (rotation, split view)
+    if (window.innerWidth !== lastW || Math.abs(window.innerHeight - (updateStickyHeight.h || 0)) > 120) {
+      lastW = window.innerWidth; updateStickyHeight.h = window.innerHeight; updateStickyHeight();
+    } else document.documentElement.style.setProperty("--sticky-h", stage.offsetHeight + "px");
+  });
+  updateStickyHeight.h = window.innerHeight;
   updateStickyHeight();
 
   // ============================================================
@@ -459,8 +503,7 @@
   sheet.className = "bg-sheet";
   sheet.setAttribute("aria-hidden", "true");
   home.prepend(sheet);
-  const projectList = document.querySelector(".projects");
-  const contactsEl = document.querySelector(".contacts");
+  const contactsEl = contacts;
   const avatarEl = about.querySelector(".avatar");
 
   const tween = (el, frames, opts) => el.animate(frames, { easing: EASE, fill: "both", ...opts }).finished;
