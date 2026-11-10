@@ -241,22 +241,20 @@
   function updateStickyHeight() {
     document.documentElement.style.setProperty("--sticky-h", stage.offsetHeight + "px");
   }
-  // The list scrolls under the sticky TV; the project closest to a reading line just
-  // below the TV is the active one. The space under the list (CSS) lets the last project
-  // reach that line too.
+  // The list scrolls under the sticky TV and the active channel follows the scroll.
+  // The page ends with the last 4 projects and the contacts in view (CSS), so the
+  // scroll is split evenly between the projects instead of waiting for each to reach the TV.
   function scrollSpy() {
     spyRaf = 0;
     // playing: the TV drives the list; stopped: scrolling must not switch the TV back on
     if (!MOBILE.matches || home.dataset.view !== "projects" || state === "playing" || state === "stopped") return;
     if (window.scrollY < 24) return; // keep the current channel at the very top of the page
-    const first = projects[0].getBoundingClientRect();
-    const line = stage.getBoundingClientRect().bottom + 32 + first.height / 2;
-    let best = 0, bestDist = Infinity;
-    projects.forEach((p, k) => {
-      const r = p.getBoundingClientRect();
-      const d = Math.abs(r.top + r.height / 2 - line);
-      if (d < bestDist) { best = k; bestDist = d; }
-    });
+    // the scroll from here to the bottom of the page is shared evenly between the projects,
+    // so each one gets the same stretch and the very bottom selects the last one
+    const START = 24;
+    const maxY = document.documentElement.scrollHeight - window.innerHeight;
+    const t = Math.min(1, Math.max(0, (window.scrollY - START) / Math.max(1, maxY - START)));
+    const best = Math.min(projects.length - 1, Math.floor(t * projects.length));
     selectFromList(best);
   }
   window.addEventListener("scroll", () => { if (!spyRaf) spyRaf = requestAnimationFrame(scrollSpy); }, { passive: true });

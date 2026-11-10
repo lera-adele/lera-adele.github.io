@@ -655,8 +655,10 @@ button {
     order: 3;
     flex: none;
     padding: 32px 20px 0 40px;
-    /* room under the list, so even the last project can scroll up to the TV (see scrollSpy) */
-    padding-bottom: max(32px, calc(100vh - var(--sticky-h, 300px) - 170px));
+    /* at the end of the page: the last 4 projects + the contacts fill the space under the TV
+       (4 rows = 224px, contacts = 104px, 32px above the rows); see scrollSpy */
+    padding-bottom: max(32px, calc(100vh - var(--sticky-h, 300px) - 360px));
+    padding-bottom: max(32px, calc(100svh - var(--sticky-h, 300px) - 360px));
   }
   /* the list scrolls naturally under the TV; the project right under it is the one on screen */
   .projects ol { gap: 16px; max-width: 600px; }
